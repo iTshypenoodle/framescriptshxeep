@@ -1,0 +1,88 @@
+-- press r to make them reach you (dont be blatant pretend like you are 1v1ing them)
+-- press x to enable/disable
+-- made by shxeep 
+
+local plr = game.Players.LocalPlayer
+
+local chosen = "InsertPlayerYouWantToFrameHere"
+
+local uis = game:GetService("UserInputService")
+
+local enabled = true
+local loop = true
+
+function notif(text)
+    local CoreGui = game:GetService("StarterGui")
+
+    CoreGui:SetCore("SendNotification", {
+        Title = "Frame Script";
+        Text = text;
+        Duration = 2;
+    })
+end
+
+uis.InputBegan:Connect(function(inp,chat)
+    if chat then return end
+    if inp.KeyCode == Enum.KeyCode.X then
+        if enabled == true then
+            enabled = false
+            notif("disabled")
+        elseif enabled == false then
+            enabled = true
+            notif("enabled")
+        end
+    end
+end)
+
+uis.InputBegan:Connect(function(inp,chat)
+    if chat then return end
+    if inp.KeyCode == Enum.KeyCode.Z then
+        if loop == true then
+            loop = false
+            notif("loop disabled")
+        elseif loop == false then
+            loop = true
+            notif("loop enabled")
+        end
+    end
+end)
+
+uis.InputBegan:Connect(function(inp,chat)
+    if chat then return end
+    if inp.KeyCode == Enum.KeyCode.R then
+        if enabled == true then
+for i = 1,20 do
+for _,v in pairs(game.Players:GetPlayers()) do
+    if v.Name == tostring(chosen) then
+        local sword = v.Character:FindFirstChildOfClass("Tool")
+        for _,r in pairs(plr.Character:GetChildren()) do
+            if r:IsA("Part") and v~=plr then
+                firetouchinterest(r,sword.Handle,0)
+                firetouchinterest(r,sword.Handle,1)
+                 firetouchinterest(r,sword.Handle,0)
+                firetouchinterest(r,sword.Handle,1)
+            end
+        end
+    end
+end
+end
+end
+end
+end)
+
+local con = game:GetService("RunService").RenderStepped:Connect(function()
+    if loop == false then con:Disconnect() return end
+    for i = 1,6 do
+for _,v in pairs(game.Players:GetPlayers()) do
+    if v.Name == tostring(chosen) then
+        local sword = v.Character:FindFirstChildOfClass("Tool")
+        for _,r in pairs(plr.Character:GetChildren()) do
+            if r:IsA("Part") and v~=plr then
+                firetouchinterest(r,sword.Handle,0)
+                firetouchinterest(r,sword.Handle,1)
+            end
+        end
+    end
+end
+end
+    end)
